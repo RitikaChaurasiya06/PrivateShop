@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PinSetupScreen from './src/screens/PinSetupScreen';
 import PinVerifyScreen from './src/screens/PinVerifyScreen';
+import HomeScreen from './src/screens/HomeScreen';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -24,16 +25,16 @@ export default function App() {
     return <ActivityIndicator size="large" />;
   }
 
-  // 🔐 NEW USER → SET PIN
+  // 🔐 NEW USER
   if (!pinExists) {
     return <PinSetupScreen onPinSaved={() => setPinExists(true)} />;
   }
 
-  // 🔓 EXISTING USER → VERIFY PIN
+  // 🔓 VERIFY PIN
   if (!loggedIn) {
     return <PinVerifyScreen onSuccess={() => setLoggedIn(true)} />;
   }
 
   // 🏠 DASHBOARD
-  return <Text>Welcome to Real Dashboard</Text>;
+  return <HomeScreen />;
 }
